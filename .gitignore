@@ -1,0 +1,48 @@
+# Flutter/Dart/Pub related
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+
+# Fuchsia related
+.fx/
+
+# Build related
+build/
+
+# iOS related
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/ServiceDefinitions.json
+ios/Runner/GeneratedPluginRegistrant.*
+ios/.generated/
+
+# Android related
+.android/
+android/.gradle/
+android/app/build/
+
+# Web related
+web/.dart_tool/
+
+# MacOS related
+macos/Flutter/ephemeral/
+
+# Linux related
+linux/flutter/ephemeral/
+
+# Windows related
+windows/flutter/ephemeral/
+
+# JetBrains related
+.idea/
+*.iml
+
+# VS Code related
+.vscode/
+
+# Other
+.DS_Store
+*.log
