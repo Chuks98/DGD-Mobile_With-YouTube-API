@@ -1,1 +1,0 @@
- C:\\Users\\user\\Downloads\\chukwuma\\note_app-main\\.dart_tool\\flutter_build\\d1e6dbf72eede1bf0f0d74775f25c993\\native_assets.yaml: 

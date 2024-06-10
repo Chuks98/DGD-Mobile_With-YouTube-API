@@ -1,12 +1,30 @@
-com.example.note_app-jetified-window-java-1.0.0-beta04-0 C:\Users\user\.gradle\caches\transforms-3\006d93cd422dbc43e89591147c2de572\transformed\jetified-window-java-1.0.0-beta04\res
-com.example.note_app-core-1.6.0-1 C:\Users\user\.gradle\caches\transforms-3\4ca28c4a71705f8a687c69dda140a277\transformed\core-1.6.0\res
-com.example.note_app-jetified-annotation-experimental-1.1.0-2 C:\Users\user\.gradle\caches\transforms-3\8965c941cf4bee4d72541b965c7c9d39\transformed\jetified-annotation-experimental-1.1.0\res
-com.example.note_app-jetified-window-1.0.0-beta04-3 C:\Users\user\.gradle\caches\transforms-3\dee59bb480020f42d53c2ea15e4501f7\transformed\jetified-window-1.0.0-beta04\res
-com.example.note_app-debug-4 C:\Users\user\Downloads\chukwuma\DGD-mobile\android\app\src\debug\res
-com.example.note_app-main-5 C:\Users\user\Downloads\chukwuma\DGD-mobile\android\app\src\main\res
-com.example.note_app-pngs-6 C:\Users\user\Downloads\chukwuma\DGD-mobile\build\app\generated\res\pngs\debug
-com.example.note_app-resValues-7 C:\Users\user\Downloads\chukwuma\DGD-mobile\build\app\generated\res\resValues\debug
-com.example.note_app-rs-8 C:\Users\user\Downloads\chukwuma\DGD-mobile\build\app\generated\res\rs\debug
-com.example.note_app-mergeDebugResources-9 C:\Users\user\Downloads\chukwuma\DGD-mobile\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
-com.example.note_app-mergeDebugResources-10 C:\Users\user\Downloads\chukwuma\DGD-mobile\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
-com.example.note_app-merged_res-11 C:\Users\user\Downloads\chukwuma\DGD-mobile\build\app\intermediates\merged_res\debug
+com.example.daily_grace_devotional.app-lifecycle-livedata-core-2.6.1-0 C:\Users\HP\.gradle\caches\transforms-3\0576c418ad5d5c0a70f255852548c6e7\transformed\lifecycle-livedata-core-2.6.1\res
+com.example.daily_grace_devotional.app-jetified-startup-runtime-1.1.1-1 C:\Users\HP\.gradle\caches\transforms-3\073d14ae18ddceab5207c56e24e1be4f\transformed\jetified-startup-runtime-1.1.1\res
+com.example.daily_grace_devotional.app-jetified-savedstate-1.2.1-2 C:\Users\HP\.gradle\caches\transforms-3\17522afff5fd69ae5a0888e02fb509b2\transformed\jetified-savedstate-1.2.1\res
+com.example.daily_grace_devotional.app-jetified-window-1.0.0-beta04-3 C:\Users\HP\.gradle\caches\transforms-3\17edf4ec98e271b988b6fdc59bf9aec9\transformed\jetified-window-1.0.0-beta04\res
+com.example.daily_grace_devotional.app-jetified-lifecycle-viewmodel-savedstate-2.6.1-4 C:\Users\HP\.gradle\caches\transforms-3\243206c147c0791eb5d104ab527ce6f1\transformed\jetified-lifecycle-viewmodel-savedstate-2.6.1\res
+com.example.daily_grace_devotional.app-jetified-profileinstaller-1.3.0-5 C:\Users\HP\.gradle\caches\transforms-3\3ef3023f1fc6dcda12a0e32a77824cb1\transformed\jetified-profileinstaller-1.3.0\res
+com.example.daily_grace_devotional.app-jetified-annotation-experimental-1.3.0-6 C:\Users\HP\.gradle\caches\transforms-3\4fa5cecfd7ab3166518362ad59835138\transformed\jetified-annotation-experimental-1.3.0\res
+com.example.daily_grace_devotional.app-media-1.1.0-7 C:\Users\HP\.gradle\caches\transforms-3\5207016d9803833710eaff6ae171bd77\transformed\media-1.1.0\res
+com.example.daily_grace_devotional.app-jetified-window-java-1.0.0-beta04-8 C:\Users\HP\.gradle\caches\transforms-3\6fc788e202ed6671d7df7e41b313b78e\transformed\jetified-window-java-1.0.0-beta04\res
+com.example.daily_grace_devotional.app-jetified-core-ktx-1.10.1-9 C:\Users\HP\.gradle\caches\transforms-3\79d3e4816fa4ab533fdf9ae2ba1e79ae\transformed\jetified-core-ktx-1.10.1\res
+com.example.daily_grace_devotional.app-jetified-activity-1.7.2-10 C:\Users\HP\.gradle\caches\transforms-3\a50f47f3dbec929212c593e09bf04dd4\transformed\jetified-activity-1.7.2\res
+com.example.daily_grace_devotional.app-lifecycle-runtime-2.6.1-11 C:\Users\HP\.gradle\caches\transforms-3\b17a910c12ab10a7290dc499377170ec\transformed\lifecycle-runtime-2.6.1\res
+com.example.daily_grace_devotional.app-lifecycle-livedata-2.6.1-12 C:\Users\HP\.gradle\caches\transforms-3\bded0a3ec8acdf605c23ecc56fdca186\transformed\lifecycle-livedata-2.6.1\res
+com.example.daily_grace_devotional.app-browser-1.5.0-13 C:\Users\HP\.gradle\caches\transforms-3\cabe559e0aef76ecb1de9156037b4dfb\transformed\browser-1.5.0\res
+com.example.daily_grace_devotional.app-core-runtime-2.2.0-14 C:\Users\HP\.gradle\caches\transforms-3\e149f3a114fac4069af8d7d39aca1766\transformed\core-runtime-2.2.0\res
+com.example.daily_grace_devotional.app-lifecycle-viewmodel-2.6.1-15 C:\Users\HP\.gradle\caches\transforms-3\f670c3d1c22e12b0cddc810cda55a59c\transformed\lifecycle-viewmodel-2.6.1\res
+com.example.daily_grace_devotional.app-core-1.10.1-16 C:\Users\HP\.gradle\caches\transforms-3\fc9abc4d8612b62fa16ce376ae5d5da2\transformed\core-1.10.1\res
+com.example.daily_grace_devotional.app-debug-17 C:\Users\HP\Desktop\Projects\Flutter Projects\DGD-mobile\android\app\src\debug\res
+com.example.daily_grace_devotional.app-main-18 C:\Users\HP\Desktop\Projects\Flutter Projects\DGD-mobile\android\app\src\main\res
+com.example.daily_grace_devotional.app-pngs-19 C:\Users\HP\Desktop\Projects\Flutter Projects\DGD-mobile\build\app\generated\res\pngs\debug
+com.example.daily_grace_devotional.app-resValues-20 C:\Users\HP\Desktop\Projects\Flutter Projects\DGD-mobile\build\app\generated\res\resValues\debug
+com.example.daily_grace_devotional.app-rs-21 C:\Users\HP\Desktop\Projects\Flutter Projects\DGD-mobile\build\app\generated\res\rs\debug
+com.example.daily_grace_devotional.app-mergeDebugResources-22 C:\Users\HP\Desktop\Projects\Flutter Projects\DGD-mobile\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
+com.example.daily_grace_devotional.app-mergeDebugResources-23 C:\Users\HP\Desktop\Projects\Flutter Projects\DGD-mobile\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
+com.example.daily_grace_devotional.app-merged_res-24 C:\Users\HP\Desktop\Projects\Flutter Projects\DGD-mobile\build\app\intermediates\merged_res\debug
+com.example.daily_grace_devotional.app-packaged_res-25 C:\Users\HP\Desktop\Projects\Flutter Projects\DGD-mobile\build\flutter_local_notifications\intermediates\packaged_res\debug
+com.example.daily_grace_devotional.app-packaged_res-26 C:\Users\HP\Desktop\Projects\Flutter Projects\DGD-mobile\build\flutter_plugin_android_lifecycle\intermediates\packaged_res\debug
+com.example.daily_grace_devotional.app-packaged_res-27 C:\Users\HP\Desktop\Projects\Flutter Projects\DGD-mobile\build\image_picker_android\intermediates\packaged_res\debug
+com.example.daily_grace_devotional.app-packaged_res-28 C:\Users\HP\Desktop\Projects\Flutter Projects\DGD-mobile\build\shared_preferences_android\intermediates\packaged_res\debug
+com.example.daily_grace_devotional.app-packaged_res-29 C:\Users\HP\Desktop\Projects\Flutter Projects\DGD-mobile\build\url_launcher_android\intermediates\packaged_res\debug

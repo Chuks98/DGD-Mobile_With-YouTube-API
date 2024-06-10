@@ -4,7 +4,7 @@
     "type": "COMPATIBLE_SCREEN_MANIFEST",
     "kind": "Directory"
   },
-  "applicationId": "com.example.note_app",
+  "applicationId": "com.example.daily_grace_devotional",
   "variantName": "debug",
   "elements": []
 }
