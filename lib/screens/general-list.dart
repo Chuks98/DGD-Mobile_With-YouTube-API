@@ -81,7 +81,8 @@ class _GeneralListState extends State<GeneralList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('General List', style: TextStyle(color: Colors.white, fontSize: 15)),
+        title: Text('General List',
+            style: TextStyle(color: Colors.white, fontSize: 15)),
         backgroundColor: Colors.grey.shade900,
       ),
       backgroundColor: Colors.grey.shade900,
