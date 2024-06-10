@@ -32,6 +32,11 @@ migrate_working_dir/
 .pub/
 /build/
 /pubspec.lock
+/.flutter-plugins
+/.metadata
+/.flutter-plugins-dependencies
+/analyis_options.yaml
+/.env
 
 # Symbolication related
 app.*.symbols
