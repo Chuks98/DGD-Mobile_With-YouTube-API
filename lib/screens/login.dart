@@ -1,6 +1,5 @@
 import 'package:daily_grace_devotional/env.dart';
 import 'package:daily_grace_devotional/cache-service.dart';
-import 'package:daily_grace_devotional/screens/display.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import "./dialog.dart";
@@ -9,6 +8,10 @@ import 'dart:convert';
 import 'register.dart';
 
 class Login extends StatefulWidget {
+  final VoidCallback? onLogin;
+
+  Login({this.onLogin});
+
   @override
   _LoginState createState() => _LoginState();
 }
@@ -25,21 +28,6 @@ class _LoginState extends State<Login> {
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _checkLoggedInUser();
-  }
-
-  Future<void> _checkLoggedInUser() async {
-    final username = await CacheService().getUser();
-    if (username != null) {
-      // User is already logged in, redirect to Display
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => Display()));
-    }
-  }
-
   void _login() async {
     final username = _usernameController.text;
     final password = _passwordController.text;
@@ -50,8 +38,7 @@ class _LoginState extends State<Login> {
     }
 
     final response = await http.post(
-      Uri.parse(
-          '${EnvironmentVariables.apiUrl}/login'), // Replace with your server URL
+      Uri.parse('${EnvironmentVariables.apiUrl}/login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -65,15 +52,10 @@ class _LoginState extends State<Login> {
       // Successful login
       await CacheService().saveUser(username);
       final Map<String, dynamic> responseData = jsonDecode(response.body);
-      popupMessage(context, "Success", responseData['message']);
-    } else if (response.statusCode == 404) {
-      // Handle different error responses
-      final Map<String, dynamic> responseData = jsonDecode(response.body);
-      popupMessage(context, "Error", responseData['message']);
-    } else if (response.statusCode == 400) {
-      // Handle different error responses
-      final Map<String, dynamic> responseData = jsonDecode(response.body);
-      popupMessage(context, "Error", responseData['message']);
+      await popupMessage(context, "Success", responseData['message']);
+
+      // Notify the main app of login success
+      widget.onLogin!();
     } else {
       // Handle different error responses
       final Map<String, dynamic> responseData = jsonDecode(response.body);

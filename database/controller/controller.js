@@ -9,10 +9,17 @@ const register = async (req, res) => {
   try {
     const { email, username, password } = req.body;
     console.log(req.body);
-    // Check if user already exists
-    const existingUser = await User.findOne({ $or: [{ email }, { username }] });
-    if (existingUser) {
-      return res.status(400).json({ message: 'Email or username already exists' });
+
+    // Check if email already exists
+    const emailExists = await User.findOne({ email });
+    if (emailExists) {
+      return res.status(400).json({ message: 'Email already exists' });
+    }
+
+    // Check if username already exists
+    const usernameExists = await User.findOne({ username });
+    if (usernameExists) {
+      return res.status(400).json({ message: 'Username already exists' });
     }
 
     // Hash password before saving
@@ -32,6 +39,7 @@ const register = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
 
 
 

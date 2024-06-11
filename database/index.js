@@ -16,30 +16,31 @@ app.use(express.urlencoded({ extended: true }));
 
 // Router for my routing, uploads and stuffs
 app.use('/', routers);
-app.use('/devotion_thumbnail', express.static(path.join(__dirname, '../react/build/devotion_thumbnail')));
-app.use('/devotion_audio', express.static(path.join(__dirname, '../react/build/devotion_audio')));
+
+// app.use('/devotion_thumbnail', express.static(path.join(__dirname, '../react/build/devotion_thumbnail')));
+// app.use('/devotion_audio', express.static(path.join(__dirname, '../react/build/devotion_audio')));
 
 
-const strength = 10; // Higher number is higher hashing strength
-const password = 'Devotion@2024';
+// const strength = 10; // Higher number is higher hashing strength
+// const password = 'Devotion@2024';
 
-(async () => {
-  try {
-    const hashedPassword = await bcrypt.hash(password, strength);
+// (async () => {
+//   try {
+//     const hashedPassword = await bcrypt.hash(password, strength);
 
-    const userData = {
-      username: 'admin',
-      password: hashedPassword,
-    };
+//     const userData = {
+//       username: 'admin',
+//       password: hashedPassword,
+//     };
 
-    const newAdmin = new Admin(userData);
-    const savedAdmin = await newAdmin.save();
+//     const newAdmin = new Admin(userData);
+//     const savedAdmin = await newAdmin.save();
 
-    console.log('User record successfully saved:', savedAdmin);
-  } catch (error) {
-    console.error(error);
-  }
-})();
+//     console.log('User record successfully saved:', savedAdmin);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// })();
 
 const PORT = process.env.PORT;
 

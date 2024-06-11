@@ -1,19 +1,17 @@
-// main.dart
 import 'package:flutter/material.dart';
-import 'dart:async';
-// import 'auth_service.dart';
 import './screens/display.dart';
-import './screens/create.dart';
-import 'package:daily_grace_devotional/screens/general-list.dart';
-import 'package:daily_grace_devotional/screens/register.dart';
-import 'package:daily_grace_devotional/screens/login.dart';
-import 'package:daily_grace_devotional/screens/update-list.dart';
+import './screens/general-list.dart';
+import './screens/login.dart';
+import './screens/logout.dart';
+import './screens/update-list.dart';
 import 'env.dart';
 import 'notification.dart';
+import 'package:daily_grace_devotional/cache-service.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await EnvironmentVariables.load();
   runApp(const MainApp());
 }
@@ -27,37 +25,46 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   late NotificationService _notificationService;
-  // final AuthService _authService = AuthService();
+  bool _isUserLoggedIn = false;
+  bool _isAdminLoggedIn = false;
 
   @override
   void initState() {
     super.initState();
     _notificationService = NotificationService();
     _notificationService.startRepeatingNotifications();
-    // Show Google Sign-In popup after 5 minutes
-    // Timer(Duration(minutes: 1), () {
-    //   _authService.showGoogleSignInNotification(navigatorKey.currentContext!);
-    // });
+    _checkLoginStatus();
   }
 
-  int _currentIndex = 4;
+  Future<void> _checkLoginStatus() async {
+    final user = await CacheService().getUser();
+    final admin = await CacheService().getAdmin();
 
-  final List<Widget> _screens = [
-    Display(),
-    GeneralList(),
-    NewDevotionScreen(),
-    Register(),
-    UpdateList(),
-  ];
+    setState(() {
+      _isUserLoggedIn = user != null;
+      _isAdminLoggedIn = admin != null;
+    });
+  }
+
+  int _currentIndex = 0;
+
+  void _updateLoginStatus() async {
+    await _checkLoginStatus();
+    setState(() {
+      _currentIndex = 0;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      navigatorKey: navigatorKey,
       home: Scaffold(
         backgroundColor: Colors.grey.shade900,
-        body: _screens[_currentIndex],
+        body: IndexedStack(
+          index: _currentIndex,
+          children: _buildScreens(),
+        ),
         bottomNavigationBar: CustomBottomNavigationBar(
           currentIndex: _currentIndex,
           onTap: (index) {
@@ -65,19 +72,42 @@ class _MainAppState extends State<MainApp> {
               _currentIndex = index;
             });
           },
+          isUserLoggedIn: _isUserLoggedIn,
+          isAdminLoggedIn: _isAdminLoggedIn,
         ),
       ),
     );
+  }
+
+  List<Widget> _buildScreens() {
+    List<Widget> screens = [
+      Display(),
+      GeneralList(),
+    ];
+
+    if (_isAdminLoggedIn) {
+      screens.add(UpdateList());
+    }
+
+    screens.add(_isUserLoggedIn
+        ? Logout(onLogout: _updateLoginStatus)
+        : Login(onLogin: _updateLoginStatus));
+
+    return screens;
   }
 }
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final int currentIndex;
   final Function(int) onTap;
+  final bool isUserLoggedIn;
+  final bool isAdminLoggedIn;
 
   CustomBottomNavigationBar({
     required this.currentIndex,
     required this.onTap,
+    required this.isUserLoggedIn,
+    required this.isAdminLoggedIn,
   });
 
   @override
@@ -93,7 +123,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 5,
-            blurRadius: 7,
+            blurRadius: 4,
             offset: Offset(0, 3), // changes position of shadow
           ),
         ],
@@ -109,13 +139,18 @@ class CustomBottomNavigationBar extends StatelessWidget {
             icon: Icon(Icons.list, color: Colors.orange, size: 30),
             onPressed: () => onTap(1),
           ),
+          if (isAdminLoggedIn)
+            IconButton(
+              icon: Icon(Icons.add, color: Colors.orange, size: 30),
+              onPressed: () => onTap(2),
+            ),
           IconButton(
-            icon: Icon(Icons.add, color: Colors.orange, size: 30),
-            onPressed: () => onTap(2),
-          ),
-          IconButton(
-            icon: Icon(Icons.person, color: Colors.orange, size: 30),
-            onPressed: () => onTap(3),
+            icon: Icon(
+              isUserLoggedIn ? Icons.logout : Icons.login,
+              color: Colors.orange,
+              size: 30,
+            ),
+            onPressed: () => onTap(isAdminLoggedIn ? 3 : 2),
           ),
         ],
       ),

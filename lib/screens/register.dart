@@ -54,6 +54,7 @@ class _RegisterState extends State<Register> {
     final username = await CacheService().getUser();
     if (username != null) {
       // User is already logged in, redirect to Display
+      await popupMessage(context, "Alert", "You are already logged in");
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => Display()));
     }
@@ -97,12 +98,15 @@ class _RegisterState extends State<Register> {
       );
 
       // Handle the responses
-      if (response.statusCode == 200) {
-        // Registration successful - handle success state (e.g., navigate to login)
-        popupMessage(context, 'Success', 'Registration successful');
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        await popupMessage(context, 'Success', 'Registration successful');
+
+        // Redirect to Display()
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Display()));
       } else {
-        // Handle error
-        popupMessage(context, 'Error', 'Registration failed: ${response.body}');
+        final Map<String, dynamic> responseData = jsonDecode(response.body);
+        popupMessage(context, 'Error', '${responseData['message']}');
       }
     } catch (e) {
       // Handle network or other errors
