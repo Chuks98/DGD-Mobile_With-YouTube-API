@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.daily_grace_devotional.app-mergeDebugResources-22:/values-night-v8/values-night-v8.xml",
+            "outputFile": "com.example.daily_grace_devotional.app-mergeDebugResources-25:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\HP\\Desktop\\Projects\\Flutter Projects\\DGD-mobile\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "C:\\Users\\HP\\Desktop\\Projects\\Mobile Projects\\DGD-mobile\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

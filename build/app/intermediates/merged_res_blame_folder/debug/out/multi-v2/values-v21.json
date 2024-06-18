@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.daily_grace_devotional.app-mergeDebugResources-22:/values-v21/values-v21.xml",
+            "outputFile": "com.example.daily_grace_devotional.app-mergeDebugResources-25:/values-v21/values-v21.xml",
             "map": [
                 {
                     "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-3\\5207016d9803833710eaff6ae171bd77\\transformed\\media-1.1.0\\res\\values-v21\\values-v21.xml",

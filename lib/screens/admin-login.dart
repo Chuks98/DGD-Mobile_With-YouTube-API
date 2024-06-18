@@ -1,10 +1,14 @@
-import 'package:daily_grace_devotional/cache-service.dart';
-import 'package:daily_grace_devotional/screens/display.dart';
+import 'package:daily_grace_devotional/main.dart';
 import 'package:flutter/material.dart';
-import "./dialog.dart";
-import 'login.dart';
+import 'package:daily_grace_devotional/screens/login.dart';
+import 'package:daily_grace_devotional/cache-service.dart';
+import './dialog.dart';
 
 class AdminLogin extends StatefulWidget {
+  final VoidCallback onLoginSuccess;
+
+  AdminLogin({required this.onLoginSuccess});
+
   @override
   _AdminLoginState createState() => _AdminLoginState();
 }
@@ -31,29 +35,26 @@ class _AdminLoginState extends State<AdminLogin> {
   Future<void> _checkLoggedInUser() async {
     final username = await CacheService().getUser();
     if (username == null) {
-      // No user logged in, show message and redirect to Login
-      await popupMessage(context, "Alert", "You need to login first as a user");
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => Login()),
-      );
+      await popupMessage(context, "Alert", "You need to first login as a user");
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
     }
   }
 
   Future<void> _checkLoggedInAdmin() async {
     final username = await CacheService().getAdmin();
     if (username != null) {
-      // No user logged in, show message and redirect to Login
       await popupMessage(
           context, "Alert", "You are already logged in as an admin");
+      widget.onLoginSuccess();
+      // Navigate to MainApp
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Display()),
+        MaterialPageRoute(builder: (context) => MyApp()),
       );
     }
   }
 
-  void _login() async {
+  void _login(BuildContext context) async {
     final username = _usernameController.text;
     final password = _passwordController.text;
 
@@ -63,14 +64,13 @@ class _AdminLoginState extends State<AdminLogin> {
     }
 
     if (username == 'admin' && password == 'Devotion@2024') {
-      // Successful login
       await CacheService().saveAdmin(username);
       await popupMessage(context, "Success", "Admin logged in successfully!");
-
-      // Redirect to Display()
+      widget.onLoginSuccess();
+      // Navigate to MainApp
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Display()),
+        MaterialPageRoute(builder: (context) => MyApp()),
       );
     } else if (username != 'admin') {
       popupMessage(context, "Error", "Invalid admin username.");
@@ -128,7 +128,7 @@ class _AdminLoginState extends State<AdminLogin> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: _login,
+                onPressed: () => _login(context),
                 child: Text('Admin Login',
                     style: TextStyle(color: Colors.white, fontSize: 15)),
                 style: ElevatedButton.styleFrom(

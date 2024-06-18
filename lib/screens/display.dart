@@ -171,7 +171,7 @@ class _DisplayState extends State<Display> {
                 child: Row(
                   children: [
                     Text('Welcome',
-                        style: TextStyle(color: Colors.white, fontSize: 25.0)),
+                        style: TextStyle(color: Colors.white, fontSize: 20.0)),
                   ],
                 ),
               ),

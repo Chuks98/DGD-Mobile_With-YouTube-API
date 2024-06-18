@@ -82,7 +82,7 @@ class _GeneralListState extends State<GeneralList> {
     return Scaffold(
       appBar: AppBar(
         title: Text('General List',
-            style: TextStyle(color: Colors.white, fontSize: 15)),
+            style: TextStyle(color: Colors.white, fontSize: 20)),
         backgroundColor: Colors.grey.shade900,
       ),
       backgroundColor: Colors.grey.shade900,

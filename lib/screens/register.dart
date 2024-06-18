@@ -1,13 +1,17 @@
-import 'dart:convert';
+import 'package:daily_grace_devotional/auth_service.dart';
 import 'package:daily_grace_devotional/cache-service.dart';
-import 'package:daily_grace_devotional/screens/display.dart';
+import 'package:daily_grace_devotional/main.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 import '../models/user-model.dart';
+import 'package:daily_grace_devotional/env.dart';
 import 'login.dart';
+import 'display.dart';
 import 'dialog.dart';
+import '../cache-service.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -23,8 +27,10 @@ class _RegisterState extends State<Register> {
 
   bool _isObscure = true;
   bool _isConfirmObscure = true;
-
   bool _isPasswordValid = false;
+  bool _isLoading = false; // Added loading state
+  GoogleAuthService googleAuthService = GoogleAuthService();
+  bool _isAuthorized = false;
 
   void _togglePasswordVisibility() {
     setState(() {
@@ -48,17 +54,27 @@ class _RegisterState extends State<Register> {
   void initState() {
     super.initState();
     _checkLoggedInUser();
+    // _checkGoogleAccount();
   }
 
   Future<void> _checkLoggedInUser() async {
     final username = await CacheService().getUser();
     if (username != null) {
-      // User is already logged in, redirect to Display
       await popupMessage(context, "Alert", "You are already logged in");
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => Display()));
+          context, MaterialPageRoute(builder: (context) => MyApp()));
     }
   }
+
+  // Future<void> _checkGoogleAccount() async {
+  //   final googleUser = await googleAuthService.signInSilently();
+  //   if (googleUser != null) {
+  //     setState(() {
+  //       _isAuthorized = true;
+  //     });
+  //     await _registerWithGoogle();
+  //   }
+  // }
 
   void _register() async {
     if (emailController.text.isEmpty ||
@@ -74,21 +90,16 @@ class _RegisterState extends State<Register> {
       return;
     }
 
-    // Create a User object using the form data
     final user = User(
       email: emailController.text,
       username: _usernameController.text,
       password: _passwordController.text,
     );
 
-    // Prepare the request data by converting the User object to a Map
     final Map<String, dynamic> requestData = user.toMap();
-
-    // Define the URL of your Node.js backend (replace with your actual URL)
-    final String url = 'http://192.168.0.147:4001/register';
+    final String url = '${EnvironmentVariables.apiUrl}/register';
 
     try {
-      // Make the POST request with JSON body
       final http.Response response = await http.post(
         Uri.parse(url),
         headers: <String, String>{
@@ -97,20 +108,86 @@ class _RegisterState extends State<Register> {
         body: jsonEncode(requestData),
       );
 
-      // Handle the responses
       if (response.statusCode == 200 || response.statusCode == 201) {
         await popupMessage(context, 'Success', 'Registration successful');
-
-        // Redirect to Display()
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Display()));
+            context, MaterialPageRoute(builder: (context) => MyApp()));
       } else {
         final Map<String, dynamic> responseData = jsonDecode(response.body);
         popupMessage(context, 'Error', '${responseData['message']}');
       }
     } catch (e) {
-      // Handle network or other errors
       popupMessage(context, 'Error', 'An error occurred: $e');
+    }
+  }
+
+  Future<void> _registerWithGoogle() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Center(child: CircularProgressIndicator());
+      },
+    );
+
+    Map<String, dynamic>? user;
+    try {
+      user = await googleAuthService.signInWithGoogle();
+    } catch (e) {
+      print("Error during Google sign-in: $e");
+    } finally {
+      if (mounted) {
+        Navigator.pop(context); // Hide loading indicator
+      }
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (user != null) {
+      String? username = user['username'];
+      String? email = user['email'];
+      String? profilePicture = user['profilePicture'];
+
+      final requestData = User(
+        email: email ?? '',
+        username: username ?? '',
+        profilePicture: profilePicture ?? '',
+      );
+
+      final String url = '${EnvironmentVariables.apiUrl}/register';
+
+      try {
+        final http.Response response = await http.post(
+          Uri.parse(url),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(requestData.toMap()), // Ensure toMap() is used
+        );
+
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          await CacheService().saveUser(username!);
+          await popupMessage(
+              context, 'Success', 'Google registration successful');
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => MyApp()));
+        } else {
+          final Map<String, dynamic> responseData = jsonDecode(response.body);
+          popupMessage(context, 'Error', '${responseData['message']}');
+        }
+      } catch (e) {
+        popupMessage(context, 'Error', 'An error occurred: $e');
+      }
+    } else {
+      popupMessage(context, "Error", "Google registration failed.");
     }
   }
 
@@ -119,7 +196,8 @@ class _RegisterState extends State<Register> {
     return Scaffold(
       backgroundColor: Colors.grey.shade900,
       appBar: AppBar(
-        title: Text('Register', style: TextStyle(color: Colors.white)),
+        title: Text('Register',
+            style: TextStyle(color: Colors.white, fontSize: 20)),
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
@@ -234,6 +312,60 @@ class _RegisterState extends State<Register> {
                             MaterialPageRoute(builder: (context) => Login()),
                           );
                         },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 20.0),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Divider(
+                    color: Colors.white,
+                    thickness: 1,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Text(
+                    "or",
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  ),
+                ),
+                Expanded(
+                  child: Divider(
+                    color: Colors.white,
+                    thickness: 1,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20.0),
+            GestureDetector(
+              onTap: _registerWithGoogle,
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(vertical: 15.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/google_icon.png',
+                      height: 20.0,
+                      width: 20.0,
+                    ),
+                    SizedBox(width: 10.0),
+                    Text(
+                      'Register with Google',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15.0,
+                      ),
                     ),
                   ],
                 ),

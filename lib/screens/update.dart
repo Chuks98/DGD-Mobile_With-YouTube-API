@@ -168,7 +168,8 @@ class _UpdateState extends State<Update> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Update Devotion', style: TextStyle(color: Colors.white)),
+        title: Text('Edit Devotion',
+            style: TextStyle(color: Colors.white, fontSize: 20)),
         backgroundColor: Colors.grey.shade900,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white),

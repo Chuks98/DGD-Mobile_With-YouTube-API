@@ -116,14 +116,9 @@ class _UpdateListState extends State<UpdateList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Devotion List', style: TextStyle(color: Colors.white)),
+        title: Text('Edit Devotion',
+            style: TextStyle(color: Colors.white, fontSize: 20)),
         backgroundColor: Colors.grey.shade900,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.of(context).pop(); // Navigate back
-          },
-        ),
       ),
       backgroundColor: Colors.grey.shade900,
       body: Padding(

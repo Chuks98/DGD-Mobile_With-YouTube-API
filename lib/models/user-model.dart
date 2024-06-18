@@ -1,12 +1,14 @@
 class User {
   final String email;
   final String username;
-  final String password;
+  final String? profilePicture;
+  final String? password;
 
   const User({
     required this.email,
     required this.username,
-    required this.password,
+    this.profilePicture,
+    this.password,
   });
 
   // Add a method to convert User to a Map for easier JSON encoding
@@ -14,6 +16,7 @@ class User {
     return {
       'email': email,
       'username': username,
+      "profilePicture": profilePicture,
       'password': password,
     };
   }

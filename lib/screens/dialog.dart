@@ -8,13 +8,13 @@ Future<void> popupMessage(BuildContext context, String title, String message) {
         title: Text(
           title,
           style: TextStyle(
-            color: Colors.orange, // Orange color for the title
+            color: Colors.orange,
           ),
         ),
         content: Text(
           message,
           style: TextStyle(
-            color: Colors.white, // White color for the message
+            color: Colors.white,
           ),
         ),
         backgroundColor: Colors.grey.shade900, // Grey background color

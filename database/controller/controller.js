@@ -8,7 +8,7 @@ var { devotionThumbnail } = require('../config/multer_config');
 const register = async (req, res) => {
   try {
     const { email, username, password } = req.body;
-    console.log(req.body);
+    console.log("User record: ", req.body);
 
     // Check if email already exists
     const emailExists = await User.findOne({ email });

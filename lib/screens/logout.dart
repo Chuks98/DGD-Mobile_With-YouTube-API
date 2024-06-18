@@ -1,4 +1,5 @@
 import 'package:daily_grace_devotional/cache-service.dart';
+import 'package:daily_grace_devotional/main.dart';
 import 'package:daily_grace_devotional/screens/admin-login.dart';
 import 'package:daily_grace_devotional/screens/dialog.dart';
 import 'package:flutter/material.dart';
@@ -35,13 +36,21 @@ class _LogoutState extends State<Logout> {
 
     await popupMessage(context, "Logged out", "Logged out successfully!");
 
-    widget.onLogout();
+    widget.onLogout(); // Trigger the login status check in MainApp
+    // Navigate to MainApp
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => MyApp()),
+    );
   }
 
   void _navigateToAdminLogin() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => AdminLogin()),
+      MaterialPageRoute(
+          builder: (context) => AdminLogin(
+                onLoginSuccess: () {},
+              )),
     );
   }
 
@@ -50,7 +59,7 @@ class _LogoutState extends State<Logout> {
     return Scaffold(
       appBar: AppBar(
         title:
-            Text('Logout', style: TextStyle(color: Colors.white, fontSize: 15)),
+            Text('Logout', style: TextStyle(color: Colors.white, fontSize: 20)),
         backgroundColor: Colors.grey.shade900,
       ),
       body: Container(
