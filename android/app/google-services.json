@@ -1,0 +1,9 @@
+{"installed":
+    {
+        "client_id":"880825915552-1qn0u8n7jrfjja21j69mq3ml8g5o201d.apps.googleusercontent.com",
+        "project_id":"fluted-ranger-416216",
+        "auth_uri":"https://accounts.google.com/o/oauth2/auth",
+        "token_uri":"https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs"
+    }
+}
